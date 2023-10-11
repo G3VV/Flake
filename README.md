@@ -1,3 +1,4 @@
+![image](https://github.com/G3VV/Flake/assets/46306494/23e44f34-758b-475b-890b-b329bac994a9)
 # Flake
 ❄️ An Auto-Scaling Cluster Manager for Discord.py
 
