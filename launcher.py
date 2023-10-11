@@ -11,7 +11,7 @@ import requests
 
 from bot import ClusterBot
 
-TOKEN = "token hereS"
+TOKEN = "TOKEN"
 
 log = logging.getLogger("Cluster#Launcher")
 log.setLevel(logging.DEBUG)
