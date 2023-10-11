@@ -1,5 +1,3 @@
-# DEVELOPMENT HAS NOT BEEN STARTED
-
 # Flake
 ❄️ An Auto-Scaling Cluster Manager for Discord.py
 
