@@ -3,6 +3,8 @@ from datetime import timedelta
 import discord
 from discord.ext import commands
 import requests
+import asyncio
+import logging
 
 
 class ClusterBot(commands.AutoShardedBot):
