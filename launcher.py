@@ -11,7 +11,10 @@ import requests
 
 from bot import ClusterBot
 
-TOKEN = "TOKEN"
+TOKEN = "tokenHere"
+
+shardsPerCluster = 20 # how many shards you'd like per cluster e.g. cluster 1 = shard 0-14, cluster 2 = shard 15-29, etc.
+shardCount = "auto" # keep as "auto" if you want to automatically get the shard count from discord, otherwise set to a number.
 
 log = logging.getLogger("Cluster#Launcher")
 log.setLevel(logging.DEBUG)
@@ -45,15 +48,18 @@ class Launcher:
         self.ipc = None
 
     def get_shard_count(self):
-        data = requests.get('https://discordapp.com/api/v7/gateway/bot', headers={
-            "Authorization": "Bot "+TOKEN,
-            "User-Agent": "DiscordBot (https://github.com/Rapptz/discord.py 1.3.0a) Python/3.7 aiohttp/3.6.1"
-        })
-        data.raise_for_status()
-        content = data.json()
-        log.info(f"Successfully got shard count of {content['shards']} ({data.status_code, data.reason})")
-        # return 16
-        return content['shards']
+        if shardCount != "auto":
+            return int(shardCount)
+        else:
+            data = requests.get('https://discordapp.com/api/v7/gateway/bot', headers={
+                "Authorization": "Bot "+TOKEN,
+                "User-Agent": "DiscordBot (https://github.com/Rapptz/discord.py 1.3.0a) Python/3.7 aiohttp/3.6.1"
+            })
+            data.raise_for_status()
+            content = data.json()
+            log.info(f"Successfully got shard count of {content['shards']} ({data.status_code, data.reason})")
+            #return 16
+            return content['shards']
 
     def start(self):
         self.fut = asyncio.ensure_future(self.startup(), loop=self.loop)
@@ -84,7 +90,7 @@ class Launcher:
             self.ipc = multiprocessing.Process(target=ipc.start, daemon=True)
             self.ipc.start()
         shards = list(range(self.get_shard_count()))
-        size = [shards[x:x + 15] for x in range(0, len(shards), 15)]
+        size = [shards[x:x + shardsPerCluster] for x in range(0, len(shards), shardsPerCluster)]
         log.info(f"Preparing {len(size)} clusters")
         for shard_ids in size:
             self.cluster_queue.append(Cluster(self, next(NAMES), shard_ids, len(shards)))

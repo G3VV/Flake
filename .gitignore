@@ -1,4 +1,4 @@
 __pycache__/
-cluster-Alpha.log
-*.pyc 
+*.log
+*.pyc
 __pycache__/bot.cpython-39.pyc
