@@ -15,11 +15,13 @@ With Flake, you can automatically scale the number of bot instances up or down b
 
 ## Features
 
-- **Auto-Scaling:** Flake can automatically adjust the number of bot instances to match the current demand, ensuring efficient resource utilization.
+- Flake can automatically adjust the number of bot instances to match the current demand, ensuring efficient resource utilization.
 
-- **Easy Integration:** Flake is designed to work seamlessly with Discord.py, making it easy to add auto-scaling capabilities to your bot.
+- Designed to work seamlessly with Discord.py.
 
-- **Open Source:** Flake is open-source software released under the GPL 3.0 license, which means you can use, modify, and contribute to the project as needed.
+- Automatically restarts clusters that died with a non-zero exit status
+
+- Will turn off if all clusters close with exit code 0
 
 ## Contributing
 
